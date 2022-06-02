@@ -52,10 +52,57 @@ public class MyLinkedList<T> implements MyList<T> {
         size++;
     }
 
-    @Override
-    public void remove(int index) {
-
+	    public void remove() {
+        Node current = first;
+        first = current.next;
+        size--;
     }
+
+    public void remove(int index) {
+        if (first == null) {
+            return;
+        }
+        if (first.value == get(index)) {
+            first = first.next;
+            --size;
+            return;
+        }
+        Node<T> current = first;
+        while(current.next != null) {
+            if (current.next.value == get(index)) {
+                current.next = current.next.next;
+                size--;
+                return;
+            }
+            current = current.next;
+        }
+    }
+    public void remove(T value) {
+        if(first == null)
+            return;
+        if (first == last) {
+            first = null;
+            last = null;
+            size--;
+            return;
+        }
+        if (first.value == value) {
+            first = first.next;
+            size--;
+            return;
+        }
+        Node current = first;
+        while (current.next != null) {
+            if (current.next.value == value) {
+                if(last == current.next) {
+                    last = current;
+                }
+                current.next = current.next.next;
+                size--;
+                return;
+            }
+            current = current.next;
+        }
 
     @Override
     public T get(int index) {
